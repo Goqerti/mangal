@@ -4,60 +4,104 @@
 <head>
     <title>Manqal House</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
+     @media only screen and (max-width: 600px) {
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  .container {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    max-width: 500px;
+    width: 90%;
+    margin: 0 auto;
+  }
+  .category {
+    margin-bottom: 20px;
+  }
+  .category h2 {
+    margin-bottom: 10px;
+  }
+  .product {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    align-items: center;
+  }
+  .product span {
+    flex: 1;
+  }
+  .product button {
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  #totalPrice {
+    font-weight: bold;
+    font-size: 1.2em;
+  }
+}
+/* Butonları tasarlamak için */
+button {
+  background-color: #007BFF;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+/* Yazıları büyütmek için */
+h1 {
+  font-size: 2em;
+}
 
-        .container {
-            background-color: #fff;
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-            text-align: center;
-            max-width: 500px;
-            width: 90%;
-            margin: 0 auto;
-        }
+h2 {
+  font-size: 1.5em;
+}
 
-        .category {
-            margin-bottom: 20px;
-        }
+span {
+  font-size: 1.2em;
+}
 
-        .category h2 {
-            margin-bottom: 10px;
-        }
+/* Ara mesafelerini korumak için */
+.container {
+  padding: 30px;
+}
 
-        .product {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-            align-items: center;
-        }
+.category {
+  margin-bottom: 30px;
+}
 
-        .product span {
-            flex: 1;
-        }
+.product {
+  margin-bottom: 20px;
+}
+/* Yazıları tasarlamak için */
+h1 {
+  /* Örneğin, yazı rengini değiştirelim */
+  color: #333;
+}
 
-        .product button {
-            background-color: #007BFF;
-            color: #fff;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
+h2 {
+  /* Örneğin, yazı boyutunu büyütelim */
+  font-size: 1.5em;
+}
 
-        #totalPrice {
-            font-weight: bold;
-            font-size: 1.2em;
-        }
+span {
+  /* Örneğin, yazı stilini değiştirelim */
+  font-style: initial;
+}
     </style>
 </head>
 
