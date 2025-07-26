@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Azerways Turizm - Discover Azerbaijan</title>
+    <style>
+        /* --- GENERAL STYLES & GOOGLE FONT --- */
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+        
+        html { scroll-behavior: smooth; }
+        body { 
+            font-family: 'Montserrat', sans-serif; 
+            margin: 0; 
+            background-color: #f4f6f9; 
+            color: #333; 
+        }
+
+        /* --- HEADER AND NAVIGATION --- */
+        header {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1636253479152-f41b8084a441?q=80&w=2070&auto=format&fit=crop') no-repeat center center/cover;
+            color: white; 
+            text-align: center; 
+            padding: 3rem 1rem; 
+        }
+        header h1 { 
+            margin: 0; 
+            font-size: 3rem; 
+            font-weight: 700;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.7); 
+        }
+        
+        .navigation-wrapper {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background-color: #ffffff;
+            border-bottom: 1px solid #ddd;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        nav { 
+            padding: 0.5rem;
+            text-align: center; 
+            overflow-x: auto; 
+            white-space: nowrap; 
+        }
+
+        .nav-button { 
+            display: inline-block; 
+            padding: 10px 18px; 
+            margin: 5px; 
+            border: 2px solid #005A9C; 
+            border-radius: 25px; 
+            background-color: #fff; 
+            color: #005A9C; 
+            text-decoration: none; 
+            font-weight: bold; 
+            transition: all 0.3s ease; 
+        }
+        .nav-button:hover { 
+            background-color: #005A9C; 
+            color: white; 
+            transform: translateY(-2px); 
+        }
+
+        /* --- MAIN CONTENT --- */
+        .container { width: 90%; max-width: 1200px; margin: 2rem auto; padding: 1rem 0; }
+        .region-section { 
+            background-color: white; 
+            margin-bottom: 3rem; 
+            border-radius: 12px; 
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08); 
+            overflow: hidden; 
+            padding-top: 60px; /* Offset for sticky nav */
+            margin-top: -60px; /* Counteract padding */
+        }
+        .region-content { padding: 1.5rem 2rem; }
+        .region-content h2 { 
+            font-size: 2.2rem; 
+            color: #005A9C; 
+            margin: 0 0 1.5rem 0; 
+            border-bottom: 3px solid #EF3340; 
+            padding-bottom: 0.75rem; 
+        }
+        .region-content p { font-size: 1.05rem; line-height: 1.8; text-align: justify; }
+
+        /* --- INTERACTIVE GALLERY STYLES --- */
+        .gallery-container { margin-bottom: 2rem; }
+        .main-image-wrapper {
+            width: 100%;
+            height: 500px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+            border-radius: 8px;
+            background-color: #eee;
+        }
+        .main-image-wrapper img { width: 100%; height: 100%; object-fit: cover; transition: all 0.4s ease; }
+        .main-image-wrapper img:hover { transform: scale(1.05); }
+        .thumbnail-wrapper { display: flex; gap: 1rem; overflow-x: auto; padding-bottom: 10px; }
+        .thumbnail-wrapper img {
+            width: 120px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 6px;
+            cursor: pointer;
+            border: 3px solid #ddd;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+        .thumbnail-wrapper img:hover { border-color: #007bff; }
+        .thumbnail-wrapper img.active {
+            border-color: #EF3340;
+            box-shadow: 0 0 12px rgba(239, 51, 64, 0.6);
+            transform: scale(1.05);
+        }
+
+        /* --- FOOTER --- */
+        footer { text-align: center; padding: 2rem; background-color: #2c3e50; color: white; margin-top: 3rem; }
+        
+        /* --- RESPONSIVE DESIGN --- */
+        @media (max-width: 768px) {
+            header { padding: 2rem 1rem; }
+            header h1 { font-size: 2.5rem; }
+            .region-content { padding: 1.5rem; }
+            .region-content h2 { font-size: 1.8rem; }
+            .region-content p { font-size: 1rem; }
+            .main-image-wrapper { height: 250px; } /* Smaller main image on mobile */
+            .thumbnail-wrapper img { width: 100px; height: 70px; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Azerways Turizm</h1>
+    </header>
+
+    <div class="navigation-wrapper">
+        <nav>
+            <a href="#baku" class="nav-button">Baku</a>
+            <a href="#karabakh" class="nav-button">Karabakh</a>
+            <a href="#quba" class="nav-button">Quba</a>
+            <a href="#naftalan" class="nav-button">Naftalan</a>
+            <a href="#sheki" class="nav-button">Sheki</a>
+            <a href="#qabala" class="nav-button">Qabala</a>
+        </nav>
+    </div>
+
+    <main class="container">
+        
+        <section id="baku" class="region-section">
+            <div class="region-content">
+                <h2>Baku - The Windy City</h2>
+                <div class="gallery-container">
+                    <div class="main-image-wrapper"><img src="img/baku2.jpg" alt="Baku Main View" class="main-image"></div>
+                    <div class="thumbnail-wrapper">
+                        <img src="img/baku1.webp" alt="Baku Thumbnail 1" class="active">
+                        <img src="img/baku3.jpg" alt="Baku Thumbnail 2">
+                        <img src="img/baku4.avif" alt="Baku Thumbnail 3">
+                    </div>
+                </div>
+                <p>Baku, the capital of Azerbaijan, is a city of stunning contrasts where the ancient East meets the modern West. Located on the Absheron Peninsula, its history is deeply rooted in the oil industry, which has funded its magnificent transformation. The city's core is the UNESCO World Heritage site, Icherisheher (Old City), a fortified complex containing the iconic Maiden Tower and the Palace of the Shirvanshahs. This historical heart is encircled by a modern metropolis boasting architectural wonders like the Flame Towers and the fluid Heydar Aliyev Center.</p>
+            </div>
+        </section>
+
+        <section id="karabakh" class="region-section">
+            <div class="region-content">
+                <h2>Karabakh - The Cultural Cradle</h2>
+                <div class="gallery-container">
+                    <div class="main-image-wrapper"><img src="img/qarabag1.jpg" alt="Karabakh Main View" class="main-image"></div>
+                    <div class="thumbnail-wrapper">
+                        <img src="img/qarabag2.jpg" alt="Karabakh Thumbnail 1" class="active">
+                        <img src="img/qarabag3.jpg" alt="Karabakh Thumbnail 2">
+                        <img src="img/qarabag4.jpg" alt="Karabakh Thumbnail 3">
+                    </div>
+                </div>
+                <p>Karabakh is the historical and cultural heartland of Azerbaijan, a land of breathtaking mountains, lush forests, and deep artistic heritage. For centuries, it has been revered as the cradle of Azerbaijani music, particularly Mugham, and the birthplace of countless poets, writers, and artists. The city of Shusha, often called the "pearl of Karabakh," is its cultural epicenter, known for its historic fortresses, mosques, and the famous Jidir Duzu plain.</p>
+            </div>
+        </section>
+
+        <section id="quba" class="region-section">
+            <div class="region-content">
+                <h2>Quba - The Mountain Jewel</h2>
+                <div class="gallery-container">
+                    <div class="main-image-wrapper"><img src="img/quba1.jpg" alt="Quba Main View" class="main-image"></div>
+                    <div class="thumbnail-wrapper">
+                    </div>
+                </div>
+                <p>Located on the northeastern slopes of the Caucasus Mountains, Quba is a region renowned for its stunning natural beauty, verdant apple orchards, and rich tapestry of cultures. It serves as a perfect escape from the city bustle. A highlight is the ancient village of Khinalig, one of Europe's highest settlements. The region is also home to the dramatic Afurja waterfall and the unique "Red Town" (Qırmızı Qəsəbə).</p>
+            </div>
+        </section>
+
+        <section id="naftalan" class="region-section">
+            <div class="region-content">
+                <h2>Naftalan - The Healing Oil</h2>
+                <div class="gallery-container">
+                    <div class="main-image-wrapper"><img src="img/naftalan1.webp" alt="Naftalan Main View" class="main-image"></div>
+                    <div class="thumbnail-wrapper">
+                        <img src="img/naftalan2.jpg" alt="Naftalan Thumbnail 1" class="active">
+                    </div>
+                </div>
+                <p>Naftalan is a globally unique resort town, famous for its one-of-a-kind natural resource: a special grade of crude oil with therapeutic properties. This oil is not used for fuel but for medicinal baths. For over a century, people have traveled to Naftalan to seek treatment for a wide range of conditions. The town is built around this industry, featuring numerous modern sanatoriums and wellness centers.</p>
+            </div>
+        </section>
+
+        <section id="sheki" class="region-section">
+            <div class="region-content">
+                <h2>Sheki - The Silk Road Pearl</h2>
+                <div class="gallery-container">
+                    <div class="main-image-wrapper"><img src="img/seki1.jpg" alt="Sheki Main View" class="main-image"></div>
+                    <div class="thumbnail-wrapper">
+                        <img src="img/saki2.jpeg" alt="Sheki Thumbnail 1" class="active">
+                    </div>
+                </div>
+                <p>Sheki is one of Azerbaijan’s most picturesque and historic cities, a former stop on the legendary Silk Road. Its crown jewel is the 18th-century Palace of the Sheki Khans, world-famous for its 'shebeke' stained-glass windows. Another landmark is the Sheki Karvansaray, a preserved inn where merchants rested. The city is also a center of craftsmanship and unique cuisine, including 'piti' and 'Sheki halva'.</p>
+            </div>
+        </section>
+        <section id="qabala" class="region-section">
+            <div class="region-content">
+                <h2>Qabala - The Land of Legends</h2>
+                <div class="gallery-container">
+                    <div class="main-image-wrapper"><img src="img/qəbələ1.jpg" alt="Qabala Main View" class="main-image"></div>
+                    <div class="thumbnail-wrapper">
+                        <img src="img/qəbələ2.jpeg" alt="Qabala Thumbnail 1" class="active">
+                    </div>
+                </div>
+                <p>Gabala (Qəbələ) is a vibrant tourist hub blending ancient history with modern leisure. For over 600 years, it was the capital of ancient Caucasian Albania. Surrounded by the Caucasus Mountains, Gabala is a destination for all seasons. It features the Tufandag Mountain Resort for skiing, the serene Nohur Lake, the Gabaland amusement park, and a world-famous international music festival.</p>
+            </div>
+        </section>
+
+    </main>
+    
+    <footer>
+        <p>&copy; 2025 Azerways Turizm. Bütün hüquqlar qorunur.</p>
+    </footer>
+
+    <script>
+        // --- SMOOTH SCROLL SCRIPT ---
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetElement = document.querySelector(this.getAttribute('href'));
+                if (targetElement) {
+                    // Correctly calculate the offset from the sticky navigation bar's height.
+                    const navHeight = document.querySelector('.navigation-wrapper').offsetHeight;
+                    const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - navHeight;
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // --- INTERACTIVE GALLERY SCRIPT ---
+        document.querySelectorAll('.thumbnail-wrapper').forEach(wrapper => {
+            wrapper.addEventListener('click', function(e) {
+                if (e.target.tagName === 'IMG') {
+                    const section = e.target.closest('.region-section');
+                    if (section) {
+                        const mainImage = section.querySelector('.main-image');
+                        mainImage.src = e.target.src;
+                        wrapper.querySelectorAll('img').forEach(img => img.classList.remove('active'));
+                        e.target.classList.add('active');
+                    }
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
