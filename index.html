@@ -1,641 +1,215 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-    <title>Manqal House</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Azerways Turizm - Interactive Gallery</title>
     <style>
-     @media only screen and (max-width: 600px) {
-  body {
-    font-family: Arial, sans-serif;
-    background-color: #f5f5f5;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
-  .container {
-    background-color: #fff;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    text-align: center;
-    max-width: 500px;
-    width: 90%;
-    margin: 0 auto;
-  }
-  .category {
-    margin-bottom: 20px;
-  }
-  .category h2 {
-    margin-bottom: 10px;
-  }
-  .product {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
-    align-items: center;
-  }
-  .product span {
-    flex: 1;
-  }
-  .product button {
-    background-color: #007BFF;
-    color: #fff;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  #totalPrice {
-    font-weight: bold;
-    font-size: 1.2em;
-  }
-}
-/* Butonları tasarlamak için */
-button {
-  background-color: #007BFF;
-  color: #fff;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 5px;
-  cursor: pointer;
-}
-/* Yazıları büyütmek için */
-h1 {
-  font-size: 2em;
-}
+        /* General Styles */
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; background-color: #f0f2f5; color: #333; }
 
-h2 {
-  font-size: 1.5em;
-}
+        /* Header and Navigation */
+        header {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1620982365269-e087389868f3?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center center/cover;
+            color: white; text-align: center; padding: 4rem 1rem; position: sticky; top: 0; z-index: 1000;
+        }
+        header h1 { margin: 0; font-size: 3.5rem; text-shadow: 2px 2px 8px rgba(0,0,0,0.7); }
+        nav { background-color: #ffffff; padding: 0.5rem; text-align: center; border-bottom: 1px solid #ddd; box-shadow: 0 2px 5px rgba(0,0,0,0.1); overflow-x: auto; white-space: nowrap; }
+        .nav-button { display: inline-block; padding: 10px 20px; margin: 5px; border: 2px solid #005A9C; border-radius: 25px; background-color: transparent; color: #005A9C; text-decoration: none; font-weight: bold; transition: all 0.3s ease; }
+        .nav-button:hover { background-color: #005A9C; color: white; transform: translateY(-2px); }
 
-span {
-  font-size: 1.2em;
-}
+        /* Main Content */
+        .container { width: 90%; max-width: 1200px; margin: 2rem auto; padding: 1rem 0; }
+        .region-section { background-color: white; margin-bottom: 3rem; border-radius: 12px; box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08); overflow: hidden; padding-top: 70px; margin-top: -70px; }
+        .region-content { padding: 2rem 2.5rem; }
+        .region-content h2 { font-size: 2.5rem; color: #005A9C; margin: 0 0 1.5rem 0; border-bottom: 3px solid #EF3340; padding-bottom: 0.75rem; }
+        .region-content p { font-size: 1.1rem; line-height: 1.7; text-align: justify; }
 
-/* Ara mesafelerini korumak için */
-.container {
-  padding: 30px;
-}
+        /* --- INTERACTIVE GALLERY STYLES --- */
+        .gallery-container {
+            margin-bottom: 2rem;
+        }
+        .main-image-wrapper {
+            width: 100%;
+            height: 500px; /* Taller main image */
+            margin-bottom: 1rem;
+            overflow: hidden;
+            border-radius: 8px;
+        }
+        .main-image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        .main-image-wrapper img:hover {
+            transform: scale(1.05);
+        }
+        .thumbnail-wrapper {
+            display: flex;
+            gap: 1rem;
+            overflow-x: auto; /* Allow horizontal scrolling on small screens */
+            padding-bottom: 10px; /* Space for scrollbar */
+        }
+        .thumbnail-wrapper img {
+            width: 120px; /* Larger thumbnails */
+            height: 80px;
+            object-fit: cover;
+            border-radius: 6px;
+            cursor: pointer;
+            border: 3px solid transparent;
+            transition: all 0.3s ease;
+            flex-shrink: 0; /* Prevent thumbnails from shrinking */
+        }
+        .thumbnail-wrapper img:hover {
+            border-color: #007bff;
+        }
+        .thumbnail-wrapper img.active {
+            border-color: #EF3340; /* Red border for active thumbnail */
+            box-shadow: 0 0 10px rgba(239, 51, 64, 0.5);
+            transform: scale(1.05);
+        }
+        /* --- END GALLERY STYLES --- */
 
-.category {
-  margin-bottom: 30px;
-}
-
-.product {
-  margin-bottom: 20px;
-}
-/* Yazıları tasarlamak için */
-h1 {
-  /* Örneğin, yazı rengini değiştirelim */
-  color: #333;
-}
-
-h2 {
-  /* Örneğin, yazı boyutunu büyütelim */
-  font-size: 1.5em;
-}
-
-span {
-  /* Örneğin, yazı stilini değiştirelim */
-  font-style: initial;
-}
+        /* Footer */
+        footer { text-align: center; padding: 2rem; background-color: #333; color: white; margin-top: 3rem; }
     </style>
 </head>
-
 <body>
-    <div class="container">
-        <h1>Manqal House</h1>
-        <div class="category">
-            <h2>Pizza</h2>
-            <div class="product">
-                <span>Margarita 25 sm</span>
-                <button class="decrease">-</button>
-                <span class="quantity">0</span>
-                <button class="increase">+</button>
-                <span class="price">5 azn</span>
-            </div>
-            <div class="product">
-                <span>Margarita 30 sm</span>
-                <button class="decrease">-</button>
-                <span class="quantity">0</span>
-                <button class="increase">+</button>
-                <span class="price">6.50 azn</span>
-            </div>
-            <div class="product">
-                <span>Peperoni 25 sm</span>
-                <button class="decrease">-</button>
-                <span class="quantity">0</span>
-                <button class="increase">+</button>
-                <span class="price">6 azn</span>
-            </div>
-            <div class="product">
-                <span>Peperoni 30 sm</span>
-                <button class="decrease">-</button>
-                <span class="quantity">0</span>
-                <button class="increase">+</button>
-                <span class="price">7.50 azn</span>
-            </div>
-            <div class="product">
-                <span>Qarışıq 25 sm</span>
-                <button class="decrease">-</button>
-                <span class="quantity">0</span>
-                <button class="increase">+</button>
-                <span class="price">6.50 azn</span>
-            </div>
-            <div class="product">
-                <span>Qarışıq 30 sm</span>
-                <button class="decrease">-</button>
-                <span class="quantity">0</span>
-                <button class="increase">+</button>
-                <span class="price">8.50 azn</span>
-            </div>
-            <div class="product">
-                <span>Pollo 25 sm</span>
-                <button class="decrease">-</button>
-                <span class="quantity">0</span>
-                <button class="increase">+</button>
-                <span class="price">6 azn</span>
-            </div>
-            <div class="product">
-                <span>Pollo 30 sm</span>
-                <button class="decrease">-</button>
-                <span class="quantity">0</span>
-                <button class="increase">+</button>
-                <span class="price">6 azn</span>
-            </div>
-            <div class="product">
-                <span>Sezar 25 sm</span>
-                <button class="decrease">-</button>
-                <span class="quantity">0</span>
-                <button class="increase">+</button>
-                <span class="price">8 azn</span>
-            </div>
-            <div class="product">
-                <span>Sezar 30 sm</span>
-                <button class="decrease">-</button>
-                <span class="quantity">0</span>
-                <button class="increase">+</button>
-                <span class="price">10 azn</span>
-            </div>
-        </div>
-        <div class="category">
-            <h2>Dönərlər</h2>
-            <div class="sub-category">
-                <h3>ƏT DÖNƏRLƏR</h3>
-                <div class="product">
-                    <span>Çörək</span>
-                    <button class="decrease">-</button>
-                    <span class="quantity">0</span>
-                    <button class="increase">+</button>
-                    <span class="price">2.50 azn</span>
-                </div>
-                <div class="product">
-                    <span>Lavaş</span>
-                    <button class="decrease">-</button>
-                    <span class="quantity">0</span>
-                    <button class="increase">+</button>
-                    <span class="price">2.70 azn</span>
-                </div>
-                <div class="product">
-                    <span>Basdırma</span>
-                    <button class="decrease">-</button>
-                    <span class="quantity">0</span>
-                    <button class="increase">+</button>
-                    <span class="price">2.80 azn</span>
-                </div>
-                <div class="product">
-                    <span>Tombik</span>
-                    <button class="decrease">-</button>
-                    <span class="quantity">0</span>
-                    <button class="increase">+</button>
-                    <span class="price">3 azn</span>
-                </div>
-                <div class="product">
-                    <span>Tombik pendirli</span>
-                    <button class="decrease">-</button>
-                    <span class="quantity">0</span>
-                    <button class="increase">+</button>
-                    <span class="price">3.50 azn</span>
-                </div>
-                <div class="product">
-                    <span>Tombik pendirli göbələk</span>
-                    <button class="decrease">-</button>
-                    <span class="quantity">0</span>
-                    <button class="increase">+</button>
-                    <span class="price">3.50 azn</span>
-                </div>
-                <div class="product">
-                    <span>Porsiyon</span>
-                    <button class="decrease">-</button>
-                    <span class="quantity">0</span>
-                    <button class="increase">+</button>
-                    <span class="price">8 azn</span>
-                </div>
-                <div class="product">
-                    <span>Plov üstü</span>
-                    <button class="decrease">-</button>
-                    <span class="quantity">0</span>
-                    <button class="increase">+</button>
-                    <span class="price">7 azn</span>
-                </div>
-                <div class="product">
-                    <span>İsgəndər</span>
-                    <button class="decrease">-</button>
-                    <span class="quantity">0</span>
-                    <button class="increase">+</button>
-                    <span class="price">8 azn</span>
-                </div>
-                <div class="product">
-                    <span>Dürüm</span>
-                    <button class="decrease">-</button>
-                    <span class="quantity">0</span>
-                    <button class="increase">+</button>
-                    <span class="price">8 azn</span>
-                </div>
-                <div class="product">
-                    <span>Şaurma</span>
-                    <button class="decrease">-</button>
-                    <span class="quantity">0</span>
-                    <button class="increase">+</button>
-                    <span class="price">3.50 azn</span>
-                </div>
-            </div>
-            <div class="sub-category">
-                <h3>TOYUQ DÖNƏRLƏR</h3>
-                <div class="product">
-                    <span>Çörək</span>
-                    <button class="decrease">-</button>
-                    <span class="quantity">0</span>
-                    <button class="increase">+</button>
-                    <span class="price">2 azn</span>
-                </div>
-                <div class="product">
-                    <span>Lavaş</span>
-                    <button class="decrease">-</button>
-                    <span class="quantity">0</span>
-                    <button class="increase">+</button>
-                    <span class="price">2.20 azn</span>
-                </div>
-                <div class="product">
-                    <span>Basdırma</span>
-                    <button class="decrease">-</button>
-                    <span class="quantity">0</span>
-                    <button class="increase">+</button>
-                    <span class="price">2.40 azn</span>
-                </div>
-                <div class="product">
-                    <span>Tombik</span>
-                    <button class="decrease">-</button>
-                    <span class="quantity">0</span>
-                    <button class="increase">+</button>
-                    <span class="price">2.50 azn</span>
-                </div>
-                <div class="product">
-                    <span>Tombik pendirli</span>
-                    <button class="decrease">-</button>
-                    <span class="quantity">0</span>
-                    <button class="increase">+</button>
-                    <span class="price">3 azn</span>
-                </div>
-                <div class="product">
-                    <span>Tombik pendirli göbələk</span>
-                    <button class="decrease">-</button>
-                    <span class="quantity">0</span>
-                    <button class="increase">+</button>
-                    <span class="price">3 azn</span>
-                </div>
-                <div class="product">
-                    <span>Porsiyon</span>
-                    <button class="decrease">-</button>
-                    <span class="quantity">0</span>
-                    <button class="increase">+</button>
-                    <span class="price">7 azn</span>
-                </div>
-                <div class="product">
-                    <span>Plov üstü</span>
-                    <button class="decrease">-</button>
-                    <span class="quantity">0</span>
-                    <button class="increase">+</button>
-                    <span class="price">6 azn</span>
-                </div>
-                <div class="product">
-                    <span>İsgəndər</span>
-                    <button class="decrease">-</button>
-                    <span class="quantity">0</span>
-                    <button class="increase">+</button>
-                    <span class="price">7 azn</span>
-                </div>
-                <div class="product">
-                    <span>Dürüm</span>
-                    <button class="decrease">-</button>
-                    <span class="quantity">0</span>
-                    <button class="increase">+</button>
-                    <span class="price">7 azn</span>
-                </div>
-                <div class="product">
-                    <span>Şaurma</span>
-                    <button class="decrease">-</button>
-                    <span class="quantity">0</span>
-                    <button class="increase">+</button>
-                    <span class="price">3 azn</span>
-                </div>
-                <div class="category">
-                    <h2>Çiy köftə</h2>
-                    <div class="sub-category">
-                        <div class="product">
-                            <span>Dürüm</span>
-                            <button class="decrease">-</button>
-                            <span class="quantity">0</span>
-                            <button class="increase">+</button>
-                            <span class="price">3.50 azn</span>
-                        </div>
-                        <div class="product">
-                            <span>Mega Dürüm</span>
-                            <button class="decrease">-</button>
-                            <span class="quantity">0</span>
-                            <button class="increase">+</button>
-                            <span class="price">4.50 azn</span>
-                        </div>
-                        <div class="product">
-                            <span>Ultra Mega Dürüm</span>
-                            <button class="decrease">-</button>
-                            <span class="quantity">0</span>
-                            <button class="increase">+</button>
-                            <span class="price">5.50 azn</span>
-                        </div>
-                        <div class="product">
-                            <span>Duble Dürüm</span>
-                            <button class="decrease">-</button>
-                            <span class="quantity">0</span>
-                            <button class="increase">+</button>
-                            <span class="price">6.50 azn</span>
-                        </div>
-                        <div class="product">
-                            <span>200 qr Yaşıllıq paketi, 2 lavaş, 2 sous </span>
-                            <button class="decrease">-</button>
-                            <span class="quantity">0</span>
-                            <button class="increase">+</button>
-                            <span class="price">8.50 azn</span>
-                        </div>
-                        <div class="product">
-                            <span>400 qr Yaşıllıq paketi 3 lavaş, 3 sous</span>
-                            <button class="decrease">-</button>
-                            <span class="quantity">0</span>
-                            <button class="increase">+</button>
-                            <span class="price">15.90 azn</span>
-                        </div>
-                        <div class="product">
-                            <span>600 qr Yaşıllıq paketi 5 lavaş, 4 sous </span>
-                            <button class="decrease">-</button>
-                            <span class="quantity">0</span>
-                            <button class="increase">+</button>
-                            <span class="price">19.90 azn</span>
-                        </div>
-                        <div class="product">
-                            <span>800 qr Yaşıllıq paketi 7 lavaş, 5 sous</span>
-                            <button class="decrease">-</button>
-                            <span class="quantity">0</span>
-                            <button class="increase">+</button>
-                            <span class="price">23.90 azn</span>
-                        </div>
-                        <div class="product">
-                            <span>1 kq Yaşıllıq paketi 8 lavaş, 6 sous</span>
-                            <button class="decrease">-</button>
-                            <span class="quantity">0</span>
-                            <button class="increase">+</button>
-                            <span class="price">23.90 azn</span>
-                        </div>
-                        <div class="category">
-                            <h2>Lahmacunlar</h2>
-                            <div class="sub-category">
-                                <div class="product">
-                                    <span>Sadə</span>
-                                    <button class="decrease">-</button>
-                                    <span class="quantity">0</span>
-                                    <button class="increase">+</button>
-                                    <span class="price">2.50 azn</span>
-                                </div>
-                                <div class="product">
-                                    <span>Pendirli</span>
-                                    <button class="decrease">-</button>
-                                    <span class="quantity">0</span>
-                                    <button class="increase">+</button>
-                                    <span class="price">3 azn</span>
-                                </div>
-                                <div class="product">
-                                    <span>Qozlu</span>
-                                    <button class="decrease">-</button>
-                                    <span class="quantity">0</span>
-                                    <button class="increase">+</button>
-                                    <span class="price">3 azn</span>
-                                </div>
-            </div>
-            <h2>Pidelər</h2>
-            <div class="product">
-                <span>Pendirli</span>
-                <button class="decrease">-</button>
-                <span class="quantity">0</span>
-                <button class="increase">+</button>
-                <span class="price">5 azn</span>
-            </div>
-            <div class="product">
-                <span>Qiymə ilə</span>
-                <button class="decrease">-</button>
-                <span class="quantity">0</span>
-                <button class="increase">+</button>
-                <span class="price">6.50 azn</span>
-            </div>
-            <div class="product">
-                <span>Ət ilə</span>
-                <button class="decrease">-</button>
-                <span class="quantity">0</span>
-                <button class="increase">+</button>
-                <span class="price">6.50 azn</span>
-            </div>
-            <div class="product">
-                <span>Pendir və qiymə </span>
-                <button class="decrease">-</button>
-                <span class="quantity">0</span>
-                <button class="increase">+</button>
-                <span class="price">7 azn</span>
-            </div>
-            <div class="product">
-                <span>Pendir və ət</span>
-                <button class="decrease">-</button>
-                <span class="quantity">0</span>
-                <button class="increase">+</button>
-                <span class="price">7 azn</span>
-            </div>
-            <div class="product">
-                <span>Qarışıq</span>
-                <button class="decrease">-</button>
-                <span class="quantity">0</span>
-                <button class="increase">+</button>
-                <span class="price">7.50 azn</span>
-            </div>
-            <div class="category">
-                <h2>Salatlar</h2>
-                <div class="sub-category">
-                    <div class="product">
-                        <span>Paytaxt</span>
-                        <button class="decrease">-</button>
-                        <span class="quantity">0</span>
-                        <button class="increase">+</button>
-                        <span class="price">2.50 azn</span>
-                    </div>
-                    <div class="product">
-                        <span>Sezar</span>
-                        <button class="decrease">-</button>
-                        <span class="quantity">0</span>
-                        <button class="increase">+</button>
-                        <span class="price">5 azn</span>
-                    </div>
-                    <div class="product">
-                        <span>Çoban</span>
-                        <button class="decrease">-</button>
-                        <span class="quantity">0</span>
-                        <button class="increase">+</button>
-                        <span class="price">1.50 azn</span>
-                    </div>
-                    <div class="category">
-                        <h2>Çorbalar</h2>
-                        <div class="sub-category">
-                            <div class="product">
-                                <span>Mərci</span>
-                                <button class="decrease">-</button>
-                                <span class="quantity">0</span>
-                                <button class="increase">+</button>
-                                <span class="price">2 azn</span>
-                            </div>
-                            <div class="product">
-                                <span>Mərci Paket</span>
-                                <button class="decrease">-</button>
-                                <span class="quantity">0</span>
-                                <button class="increase">+</button>
-                                <span class="price">2.50 azn</span>
-                            </div>
-                            <h3>İçkilər</h3>
-                            <div class="product">
-                                <span>Kola 0.33 lt</span>
-                                <button class="decrease">-</button>
-                                <span class="quantity">0</span>
-                                <button class="increase">+</button>
-                                <span class="price">2 azn</span>
-                            </div>
-                            <div class="product">
-                                <span>Kola 0.3 lt</span>
-                                <button class="decrease">-</button>
-                                <span class="quantity">0</span>
-                                <button class="increase">+</button>
-                                <span class="price">1 azn</span>
-                            </div>
-                            <div class="product">
-                                <span>Kola 0.5 lt </span>
-                                <button class="decrease">-</button>
-                                <span class="quantity">0</span>
-                                <button class="increase">+</button>
-                                <span class="price">1.20 azn</span>
-                            </div>
-                            <div class="product">
-                                <span>Kola 1 lt</span>
-                                <button class="decrease">-</button>
-                                <span class="quantity">0</span>
-                                <button class="increase">+</button>
-                                <span class="price">2 azn</span>
-                            </div>
-                            <div class="product">
-                                <span>Kola 2 lt </span>
-                                <button class="decrease">-</button>
-                                <span class="quantity">0</span>
-                                <button class="increase">+</button>
-                                <span class="price">3 azn</span>
-                            </div>
-                            <div class="product">
-                                <span>Cappy 0.5 lt</span>
-                                <button class="decrease">-</button>
-                                <span class="quantity">0</span>
-                                <button class="increase">+</button>
-                                <span class="price">1.50 azn</span>
-                            </div>
-                            <div class="product">
-                                <span>Cappy 1 lt</span>
-                                <button class="decrease">-</button>
-                                <span class="quantity">0</span>
-                                <button class="increase">+</button>
-                                <span class="price">2.50 azn</span>
-                            </div>
-                            <div class="product">
-                                <span>Banaqua qazsız</span>
-                                <button class="decrease">-</button>
-                                <span class="quantity">0</span>
-                                <button class="increase">+</button>
-                                <span class="price">0.60 azn</span>
-                            </div>
-                            <div class="product">
-                                <span>Banaqua qazlı</span>
-                                <button class="decrease">-</button>
-                                <span class="quantity">0</span>
-                                <button class="increase">+</button>
-                                <span class="price">0.60 azn</span>
-                            </div>
-                            <div class="product">
-                                <span>Çöplü sok</span>
-                                <button class="decrease">-</button>
-                                <span class="quantity">0</span>
-                                <button class="increase">+</button>
-                                <span class="price">0.60 azn</span>
-                            </div>
-                            <div class="product">
-                                <span>Ayran sadə</span>
-                                <button class="decrease">-</button>
-                                <span class="quantity">0</span>
-                                <button class="increase">+</button>
-                                <span class="price">0.60 azn</span>
-                            </div>
-                            <div class="product">
-                                <span>Ayran Nanəli</span>
-                                <button class="decrease">-</button>
-                                <span class="quantity">0</span>
-                                <button class="increase">+</button>
-                                <span class="price">1 azn</span>
-                            </div>
-</div>
-            <div>
-                <button id="calculateTotal">Toplam qiymət</button>
-                <span id="totalPrice">Toplam qiymət: 0 azn</span>
-            </div>
-            
-            <script>
-                // JavaScript Kodları
-                
-                const decreaseButtons = document.querySelectorAll('.decrease');
-                const increaseButtons = document.querySelectorAll('.increase');
-                const quantityElements = document.querySelectorAll('.quantity');
-                const priceElements = document.querySelectorAll('.price');
-                const calculateTotalButton = document.getElementById('calculateTotal');
-                const totalPriceElement = document.getElementById('totalPrice');
-                let totalPrice = 0;
-                for (let i = 0; i < decreaseButtons.length; i++) {
-                    decreaseButtons[i].addEventListener('click', () => {
-                        if (parseInt(quantityElements[i].textContent) > 0) {
-                            quantityElements[i].textContent = parseInt(quantityElements[i].textContent) - 1;
-                            totalPrice -= parseFloat(priceElements[i].textContent);
-                            totalPriceElement.textContent = `Toplam qiymət: ${totalPrice.toFixed(2)} azn`;
-                        }
-                    });
-                    increaseButtons[i].addEventListener('click', () => {
-                        quantityElements[i].textContent = parseInt(quantityElements[i].textContent) + 1;
-                        totalPrice += parseFloat(priceElements[i].textContent);
-                        totalPriceElement.textContent = `Toplam qiymət: ${totalPrice.toFixed(2)} azn`;
-                    });
-                }
-                calculateTotalButton.addEventListener('click', () => {
-                    alert(`Toplam qiymət: ${totalPrice.toFixed(2)} azn`);
-                });
-            </script>
-</body>
 
+    <header>
+        <h1>Azerways Turizm</h1>
+        <nav>
+            <a href="#baku" class="nav-button">Baku</a>
+            <a href="#karabakh" class="nav-button">Karabakh</a>
+            <a href="#quba" class="nav-button">Quba</a>
+            <a href="#naftalan" class="nav-button">Naftalan</a>
+            <a href="#sheki" class="nav-button">Sheki</a>
+            <a href="#ganja" class="nav-button">Ganja</a>
+            <a href="#lankaran" class="nav-button">Lankaran</a>
+            <a href="#qabala" class="nav-button">Qabala</a>
+            <a href="#goygol" class="nav-button">Goygol</a>
+        </nav>
+    </header>
+
+    <main class="container">
+        
+        <section id="baku" class="region-section">
+            <div class="region-content">
+                <h2>Baku - The Windy City</h2>
+                <div class="gallery-container">
+                    <div class="main-image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1619864273185-98a0335e26a2?q=80&w=2071&auto=format&fit=crop" alt="Baku Main View" class="main-image">
+                    </div>
+                    <div class="thumbnail-wrapper" data-main-image-id="baku">
+                        <img src="https://images.unsplash.com/photo-1619864273185-98a0335e26a2?q=80&w=2071&auto=format&fit=crop" alt="Baku Thumbnail 1" class="active">
+                        <img src="https://images.unsplash.com/photo-1608661432824-95c5d07f339f?q=80&w=1964&auto=format&fit=crop" alt="Baku Thumbnail 2">
+                        <img src="https://cdn.pixabay.com/photo/2020/10/22/10/44/baku-5675841_1280.jpg" alt="Baku Thumbnail 3">
+                        <img src="https://cdn.pixabay.com/photo/2019/07/28/09/20/aizerbaijan-4368134_1280.jpg" alt="Baku Thumbnail 4">
+                    </div>
+                </div>
+                <p>Baku, the capital of Azerbaijan, is a city of stunning contrasts where the ancient East meets the modern West. Located on the Absheron Peninsula, its history is deeply rooted in the oil industry, which has funded its magnificent transformation. The city's core is the UNESCO World Heritage site, Icherisheher (Old City), a fortified complex containing the iconic Maiden Tower and the Palace of the Shirvanshahs...</p>
+            </div>
+        </section>
+
+        <section id="karabakh" class="region-section">
+            <div class="region-content">
+                <h2>Karabakh - The Cultural Cradle</h2>
+                <div class="gallery-container">
+                    <div class="main-image-wrapper">
+                        <img src="https://cdn.pixabay.com/photo/2021/11/05/10/58/shusha-6771192_1280.jpg" alt="Karabakh Main View" class="main-image">
+                    </div>
+                    <div class="thumbnail-wrapper" data-main-image-id="karabakh">
+                        <img src="https://cdn.pixabay.com/photo/2021/11/05/10/58/shusha-6771192_1280.jpg" alt="Karabakh Thumbnail 1" class="active">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/2/23/Jidir_Duzu_plain_in_Shusha.jpg" alt="Karabakh Thumbnail 2">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Yukhari_Govhar_Agha_Mosque_after_liberation.jpg/1280px-Yukhari_Govhar_Agha_Mosque_after_liberation.jpg" alt="Karabakh Thumbnail 3">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Xudaf%C9%99rin_k%C3%B6rp%C3%BCl%C9%99ri_C%C9%99bray%C4%B1l_rayonu.jpg/1280px-Xudaf%C9%99rin_k%C3%B6rp%C3%BCl%C9%99ri_C%C9%99bray%C4%B1l_rayonu.jpg" alt="Karabakh Thumbnail 4">
+                    </div>
+                </div>
+                <p>Karabakh is the historical and cultural heartland of Azerbaijan, a land of breathtaking mountains, lush forests, and deep artistic heritage. For centuries, it has been revered as the cradle of Azerbaijani music, particularly Mugham, and the birthplace of countless poets, writers, and artists. The city of Shusha, often called the "pearl of Karabakh," is its cultural epicenter...</p>
+            </div>
+        </section>
+
+        <section id="quba" class="region-section">
+            <div class="region-content">
+                <h2>Quba - The Mountain Jewel</h2>
+                <div class="gallery-container">
+                    <div class="main-image-wrapper">
+                         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/X%C4%B1nal%C4%B1q_general_view.jpg/1280px-X%C4%B1nal%C4%B1q_general_view.jpg" alt="Quba Main View" class="main-image">
+                    </div>
+                    <div class="thumbnail-wrapper" data-main-image-id="quba">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/X%C4%B1nal%C4%B1q_general_view.jpg/1280px-X%C4%B1nal%C4%B1q_general_view.jpg" alt="Quba Thumbnail 1" class="active">
+                        <img src="https://images.unsplash.com/photo-1636253479155-24864c391bce?q=80&w=2070&auto=format&fit=crop" alt="Quba Thumbnail 2">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/4/4c/Q%C4%B1rm%C4%B1z%C4%B1_Q%C9%99s%C9%99b%C9%99_Quba.jpg" alt="Quba Thumbnail 3">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/e/ec/Chanlibel_lake_in_Quba.jpg" alt="Quba Thumbnail 4">
+                    </div>
+                </div>
+                <p>Located on the northeastern slopes of the Caucasus Mountains, Quba is a region renowned for its stunning natural beauty, verdant apple orchards, and rich tapestry of cultures. It serves as a perfect escape from the city bustle, offering cool mountain air and spectacular landscapes. One of its most famous attractions is the ancient village of Khinalig (Xınalıq)...</p>
+            </div>
+        </section>
+
+        <section id="naftalan" class="region-section">
+            <div class="region-content">
+                <h2>Naftalan - The Healing Oil</h2>
+                <div class="gallery-container">
+                    <div class="main-image-wrapper">
+                         <img src="https://www.naftalan-booking.com/wp-content/uploads/2022/07/naftalan-vannalari.jpg" alt="Naftalan Main View" class="main-image">
+                    </div>
+                    <div class="thumbnail-wrapper" data-main-image-id="naftalan">
+                        <img src="https://www.naftalan-booking.com/wp-content/uploads/2022/07/naftalan-vannalari.jpg" alt="Naftalan Thumbnail 1" class="active">
+                        <img src="https://i.ytimg.com/vi/bX7eO_y0L_M/maxresdefault.jpg" alt="Naftalan Thumbnail 2">
+                        <img src="https://media.cntraveller.in/wp-content/uploads/2019/11/Naftalan-866x487.jpg" alt="Naftalan Thumbnail 3">
+                        <img src="https://www.eurasiatx.com/wp-content/uploads/2021/08/Naftalan-CR.jpg" alt="Naftalan Thumbnail 4">
+                    </div>
+                </div>
+                <p>Naftalan is a globally unique resort town, famous for its one-of-a-kind natural resource: a special grade of crude oil with therapeutic properties. This oil is not used for fuel but for medicinal baths. For over a century, people from all over the world have traveled to Naftalan to seek treatment for a wide range of conditions...</p>
+            </div>
+        </section>
+        
+        </main>
+    
+    <footer>
+        <p>&copy; 2025 Azerways Turizm. Bütün hüquqlar qorunur.</p>
+    </footer>
+
+    <script>
+        // --- SMOOTH SCROLL SCRIPT ---
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetElement = document.querySelector(this.getAttribute('href'));
+                if (targetElement) {
+                    targetElement.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // --- INTERACTIVE GALLERY SCRIPT ---
+        document.querySelectorAll('.thumbnail-wrapper').forEach(wrapper => {
+            wrapper.addEventListener('click', function(e) {
+                // Check if a thumbnail image was clicked
+                if (e.target.tagName === 'IMG') {
+                    // Find the parent section of the clicked thumbnail
+                    const section = e.target.closest('.region-section');
+                    if (section) {
+                        // Find the main image within that specific section
+                        const mainImage = section.querySelector('.main-image');
+                        
+                        // Update the main image's src to the clicked thumbnail's src
+                        mainImage.src = e.target.src;
+
+                        // Update the 'active' class for the thumbnails
+                        // First, remove 'active' from all thumbnails in this wrapper
+                        wrapper.querySelectorAll('img').forEach(img => img.classList.remove('active'));
+                        
+                        // Then, add 'active' to the clicked thumbnail
+                        e.target.classList.add('active');
+                    }
+                }
+            });
+        });
+    </script>
+
+</body>
 </html>
